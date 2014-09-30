@@ -12,9 +12,9 @@ import com.ric.mongodb.repository.SessionRepository;
 
 @Repository("sessionRepository")
 public class SessionRepositoryImpl implements SessionRepository {
-	
+
 	private static final Class<Session> clazz = Session.class;
-	
+
 	@Autowired
 	private MongoTemplate mongo;
 
@@ -37,17 +37,29 @@ public class SessionRepositoryImpl implements SessionRepository {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("_id").is(key));
 		mongo.findAndRemove(query, clazz);
-		// if this throws any exception we need to catch and keep info in error logs.
+		// if this throws any exception we need to catch and keep info in error
+		// logs.
 	}
 
 	@Override
 	public Session getSessionByUserName(final String userName) {
-		/*BasicQuery query = new BasicQuery("{ " + "'username'" + ": '"
-				+ userName + "' }");*/
+		/*
+		 * BasicQuery query = new BasicQuery("{ " + "'username'" + ": '" +
+		 * userName + "' }");
+		 */
 		Query query = new Query();
 		query.addCriteria(Criteria.where("username").is(userName));
 		Session session = mongo.findOne(query, clazz);
 		return session;
 	}
-	
+
+	@Override
+	public Session getSessionBySessionId(String sessionId) {
+		// TODO Auto-generated method stub
+		Query query = new Query();
+		query.addCriteria(Criteria.where("sessionId").is(sessionId));
+		Session session = mongo.findOne(query, clazz);
+		return session;
+	}
+
 }

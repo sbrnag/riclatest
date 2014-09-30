@@ -12,5 +12,10 @@ public interface SessionRepository {
 	
    public Session getSessionByUserName(String userName);
    
+   public Session getSessionBySessionId(String sessionId);
+
    public void delete(String key);
+   
+   
+   
 }

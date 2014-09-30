@@ -73,10 +73,11 @@ public class LoginServiceImpl implements LoginService {
 			userRepository.save(user);
 
 			Session session = new Session();
-			session.setUserName(userName);
+			session.setUsername(userName);
 			sessionRepository.save(session);
 
 			String sessionID = session.getSessionId();
+			
 
 			if (sessionID != null && !sessionID.isEmpty()) {
 				json = getJsonObj("secretKey", session.getSessionId());
@@ -108,7 +109,7 @@ public class LoginServiceImpl implements LoginService {
 					response = getResponse(200, MediaType.APPLICATION_JSON, session.getSessionId());
 				} else {
 					session = new Session();
-					session.setUserName(userName);
+					session.setUsername(userName);
 					sessionRepository.save(session);
 					//json = getJsonObj(AppConstants.SECRET_KEY, session.getSessionId());
 					response = getResponse(200, MediaType.APPLICATION_JSON, session.getSessionId());
